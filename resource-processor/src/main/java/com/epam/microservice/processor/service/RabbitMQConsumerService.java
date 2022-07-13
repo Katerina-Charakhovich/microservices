@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @EnableRetry
-//@Retryable(value = AmqpException.class, maxAttempts = 2, backoff = @Backoff(delay = 100))
+@Retryable(value = AmqpException.class, maxAttempts = 2, backoff = @Backoff(delay = 100))
 public class RabbitMQConsumerService {
     private final ResourceProcessor resourceProcessor;
 

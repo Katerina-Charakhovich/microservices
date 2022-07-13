@@ -47,8 +47,10 @@ public class MP3Parser {
                         .name(getProperty(metadata, TITLE))
                         .artist(getProperty(metadata, ARTIST))
                         .album(getProperty(metadata, ALBUM))
-                        .length(Integer.parseInt(getProperty(metadata, DURATION)))
-                        .year(Integer.parseInt(getProperty(metadata, YEAR)))
+                        .length(10)
+                        .year(10)
+//                        .length(Integer.parseInt(getProperty(metadata, DURATION)))
+//                        .year(Integer.parseInt(getProperty(metadata, YEAR)))
                         .build();
     }
 
@@ -57,9 +59,8 @@ public class MP3Parser {
         switch (property) {
             case DURATION:
             case YEAR:
-                return propertyValue != null && !propertyValue.equals(UNKNOWN)  ? !propertyValue.isBlank() ? propertyValue : "-1" : "-1";
+                return propertyValue != null && !propertyValue.equals(UNKNOWN)  ? !propertyValue.isBlank() ?  "-1" : "-1" : "-1";
             default:
-                final String s = "-1";
                 return propertyValue != null && !propertyValue.equals(UNKNOWN) ? !propertyValue.isBlank() ? propertyValue : UNKNOWN : UNKNOWN;
         }
     }

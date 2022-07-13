@@ -11,8 +11,6 @@ services:
     expose:
       - '5672'
       - '15672'
-    networks:
-      - localnet
 
   resource-service:
     container_name: "resource-service-21"
@@ -22,8 +20,6 @@ services:
       - "8002:8080"
     depends_on:
       - rabbitmq
-    networks:
-      - localnet
 
   resource-processor:
     container_name: "resource-processor-21"
@@ -34,11 +30,9 @@ services:
       - rabbitmq
       - song-service
       - resource-service
-    networks:
-      - localnet
     environment:
-      SONG_SERVICE_URL: http://songservice:8001
-      RESOURCE_SERVICE_URL: http://resourceservice:8002
+      SONG_SERVICE_URL: http://songservice:8080
+      RESOURCE_SERVICE_URL: http://resourceservice:8080
 
   song-service:
     hostname: songservice
@@ -46,8 +40,3 @@ services:
     image: song_service:1.0.1
     ports:
       - "8001:8080"
-    networks:
-      - localnet
-
-networks:
-  localnet:

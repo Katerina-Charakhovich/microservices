@@ -33,6 +33,9 @@ public class ResourceService {
     @Autowired
     private ResourceMapper resourceMapper;
 
+    @Autowired
+    private RabbitMQSendService rabbitMQSendService;
+
     //@Value("{$aws.bucket}")
     private String BUCKET = "awstask8";
 
@@ -46,6 +49,8 @@ public class ResourceService {
         ResourceEntity entityModel = new ResourceEntity();
         entityModel.setFileName(file.getOriginalFilename());
         resourceRepository.save(entityModel);
+        long id = entityModel.getId();
+        rabbitMQSendService.sendMessage(id);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

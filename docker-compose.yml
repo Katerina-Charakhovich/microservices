@@ -1,0 +1,42 @@
+version: "3"
+
+services:
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3-management
+    hostname: rabbit
+    ports:
+      - "5672:5672" # rabbitmq console manager
+      - "15672:15672" # RabbitMQ management UI
+    expose:
+      - '5672'
+      - '15672'
+
+  resource-service:
+    container_name: "resource-service-21"
+    hostname: resourceservice
+    image: resource-service.2.0.2
+    ports:
+      - "8002:8080"
+    depends_on:
+      - rabbitmq
+
+  resource-processor:
+    container_name: "resource-processor-21"
+    image: resource-processor.2.0.2
+    ports:
+      - "8003:8080"
+    depends_on:
+      - rabbitmq
+      - song-service
+      - resource-service
+    environment:
+      SONG_SERVICE_URL: http://songservice:8080
+      RESOURCE_SERVICE_URL: http://resourceservice:8080
+
+  song-service:
+    hostname: songservice
+    container_name: "song-service-1"
+    image: song_service:1.0.1
+    ports:
+      - "8001:8080"

@@ -25,10 +25,10 @@ public class SongService {
     private SongMapper songMapper;
 
     @Transactional
-    public ResponseEntity<?> add(SongDto song) {
+    public ResponseEntity<SongDto> add(SongDto song) {
         SongEntity entityModel = songMapper.toSongEntity(song);
-        songRepository.save(entityModel);
-        return new ResponseEntity<>(entityModel, HttpStatus.CREATED);
+        SongEntity saveEntity = songRepository.save(entityModel);
+        return new ResponseEntity<>(songMapper.toSongDto(saveEntity), HttpStatus.CREATED);
     }
 
     @Transactional

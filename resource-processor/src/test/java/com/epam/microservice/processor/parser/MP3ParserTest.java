@@ -24,4 +24,8 @@ class MP3ParserTest {
         SongDto songDto = mp3Parser.parse(input.readAllBytes());
         int i=0;
     }
+
+    @Test
+    void getProperty() {
+    }
 }

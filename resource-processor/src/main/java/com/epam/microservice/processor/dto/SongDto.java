@@ -12,10 +12,20 @@ import org.springframework.stereotype.Component;
 @Component
 @Builder
 public class SongDto {
+    private Long id;
     private String name;
     private String artist;
     private String album;
     private int length;
     private int year;
     private Long resourceId;
+
+    public SongDto(String name, String artist, String album, int length, int year, Long resourceId) {
+        this.name = name;
+        this.artist = artist;
+        this.album = album;
+        this.length = length;
+        this.year = year;
+        this.resourceId = resourceId;
+    }
 }

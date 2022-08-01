@@ -13,12 +13,12 @@ import java.io.InputStream;
 
 @Component
 public class MP3Parser {
-    private static final String TITLE = "title";
-    private static final String ARTIST = "xmpDM:artist";
-    private static final String ALBUM = "xmpDM:album";
-    private static final String DURATION = "xmpDM:duration";
-    private static final String YEAR = "xmpDM:releaseDate";
-    public static final String UNKNOWN = "unknown";
+    static final String TITLE = "title";
+    static final String ARTIST = "xmpDM:artist";
+    static final String ALBUM = "xmpDM:album";
+    static final String DURATION = "xmpDM:duration";
+    static final String YEAR = "xmpDM:releaseDate";
+    static final String UNKNOWN = "unknown";
 
     public SongDto parse(byte[] file) {
         InputStream input = new ByteArrayInputStream(file);
@@ -26,7 +26,7 @@ public class MP3Parser {
         return getSongDtoByMetadata(metadata);
     }
 
-    private Metadata getMetadata(InputStream input) {
+    Metadata getMetadata(InputStream input) {
         try {
             ContentHandler handler = new DefaultHandler();
             Metadata metadata = new Metadata();
@@ -41,7 +41,7 @@ public class MP3Parser {
         }
     }
 
-    private SongDto getSongDtoByMetadata(Metadata metadata) {
+    SongDto getSongDtoByMetadata(Metadata metadata) {
         return
                 SongDto.builder()
                         .name(getProperty(metadata, TITLE))
@@ -54,7 +54,8 @@ public class MP3Parser {
                         .build();
     }
 
-    private String getProperty(Metadata metadata, String property) {
+
+     String getProperty(Metadata metadata, String property) {
         String propertyValue = metadata!=null? metadata.get(property):UNKNOWN;
         switch (property) {
             case DURATION:

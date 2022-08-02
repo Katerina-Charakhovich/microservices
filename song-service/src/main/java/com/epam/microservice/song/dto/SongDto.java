@@ -1,5 +1,6 @@
 package com.epam.microservice.song.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
+@JsonSerialize
 public class SongDto {
     private Long id;
     private String name;
@@ -17,4 +19,13 @@ public class SongDto {
     private int length;
     private int year;
     private Long resourceId;
+
+    public SongDto(String name, String artist, String album, int length, int year, Long resourceId) {
+        this.name = name;
+        this.artist = artist;
+        this.album = album;
+        this.length = length;
+        this.year = year;
+        this.resourceId = resourceId;
+    }
 }

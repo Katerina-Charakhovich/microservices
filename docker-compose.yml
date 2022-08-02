@@ -20,6 +20,8 @@ services:
       - "8002:8080"
     depends_on:
       - rabbitmq
+    env_file:
+      - ".resource-service/resource.service.env"
 
   resource-processor:
     container_name: "resource-processor-21"
@@ -30,9 +32,9 @@ services:
       - rabbitmq
       - song-service
       - resource-service
-    environment:
-      SONG_SERVICE_URL: http://songservice:8080
-      RESOURCE_SERVICE_URL: http://resourceservice:8080
+    env_file:
+      - ".resource-processor/resource.processor.env"
+
 
   song-service:
     hostname: songservice
@@ -40,3 +42,5 @@ services:
     image: song_service:1.0.1
     ports:
       - "8001:8080"
+    env_file:
+      - ".song-service/song.service.env"
